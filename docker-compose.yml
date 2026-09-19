@@ -1,0 +1,36 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: boe-ollama
+    restart: unless-stopped
+    volumes:
+      - ollama_data:/root/.ollama
+    # Si tienes GPU NVIDIA + NVIDIA Container Toolkit instalado en el host,
+    # descomenta esto: Ollama la detecta y la usa automáticamente, sin tocar
+    # nada más de este proyecto.
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  boe-watcher:
+    build: .
+    container_name: boe-watcher
+    restart: unless-stopped
+    depends_on:
+      - ollama
+    env_file:
+      - .env
+    environment:
+      TZ: Europe/Madrid
+      RUN_TIME: "08:00"
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODEL: qwen2.5:3b-instruct-q4_K_M
+    volumes:
+      - ./data:/data
+
+volumes:
+  ollama_data:

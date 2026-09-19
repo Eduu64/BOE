@@ -1,0 +1,34 @@
+root ::= object
+
+object ::= "{" ws
+  "\"formato_fuente\"" ws ":" ws formato ws "," ws
+  "\"convocatorias\"" ws ":" ws convocatorias-array ws
+"}"
+
+formato ::= "\"texto\"" | "\"tabla\""
+
+convocatorias-array ::= "[" ws (convocatoria (ws "," ws convocatoria)*)? ws "]"
+
+convocatoria ::= "{" ws
+  "\"puesto\"" ws ":" ws string ws "," ws
+  "\"organismo\"" ws ":" ws string ws "," ws
+  "\"plazas\"" ws ":" ws integer ws "," ws
+  "\"turno\"" ws ":" ws turno ws "," ws
+  "\"grupo\"" ws ":" ws grupo-array ws "," ws
+  "\"categorias\"" ws ":" ws categoria-array ws "," ws
+  "\"hereda_contexto_general\"" ws ":" ws boolean ws
+"}"
+
+turno ::= "\"libre\"" | "\"promocion_interna\"" | "\"discapacidad\"" | "\"mixto\"" | "\"no_especificado\""
+
+grupo-item ::= "\"A1\"" | "\"A2\"" | "\"B\"" | "\"C1\"" | "\"C2\"" | "\"AP\"" | "\"no_especificado\""
+grupo-array ::= "[" ws (grupo-item (ws "," ws grupo-item)*)? ws "]"
+
+categoria-item ::= "\"informatica_tic\"" | "\"administracion_general\"" | "\"sanidad\"" | "\"educacion\"" | "\"seguridad\"" | "\"justicia\"" | "\"hacienda\"" | "\"ingenieria\"" | "\"medio_ambiente\"" | "\"obras_publicas\"" | "\"trabajo_y_asuntos_sociales\"" | "\"cultura\"" | "\"estadistica_y_investigacion\"" | "\"otros\""
+categoria-array ::= "[" ws (categoria-item (ws "," ws categoria-item)*)? ws "]"
+
+boolean ::= "true" | "false"
+integer ::= "-"? [0-9]+
+string ::= "\"" char* "\""
+char ::= [^"\\\x00-\x1F] | "\\" (["\\/bfnrt] | "u" [0-9a-fA-F]{4})
+ws ::= [ \t\n\r]*
