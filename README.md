@@ -59,6 +59,22 @@ aparte:
      canal fijo en vez de por DM, pon ese canal en `DISCORD_CHANNEL_ID` y
      deja `DISCORD_USER_ID` vacío (en ese caso los comandos quedan abiertos
      a quien pueda escribir en ese canal).
+     
+DISCORD_BOT_TOKEN=""
+DISCORD_USER_ID=""
+DISCORD_CHANNEL_ID=""
+
+RUN_TIME=08:00
+TZ=Europe/Madrid
+
+BANDEJA_EXPIRA_DIAS=7
+
+OLLAMA_HOST=http://ollama:11434
+OLLAMA_MODEL=qwen2.5:3b-instruct-q4_K_M
+OLLAMA_KEEP_ALIVE=5m
+LLM_CONTEXT_TOKENS=4096
+
+  
 
 ### 1.2 El modelo LLM
 
